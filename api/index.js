@@ -19,6 +19,13 @@ import { isLocaleAvailable } from "../src/translations.js";
 
 // @ts-ignore
 export default async (req, res) => {
+  const secretRepos = process.env.secret_list || ""; 
+  
+  if (req.query.exclude_repo) {
+    req.query.exclude_repo += "," + secretRepos;
+  } else {
+    req.query.exclude_repo = secretRepos;
+  }
   const {
     username,
     hide,
